@@ -8,7 +8,25 @@ var firebaseConfig = {
       appId: "1:402090926668:web:efb713d564296ea7f80ae9",
       measurementId: "${config.measurementId}"
 };
-initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+username = localStorage.getItem("UserName");
+document.getElementById("username").innerHTML = "Welcome &nbsp;" + username + "!";
+
+function addroom() {
+      roomname = document.getElementById("input_room_name").value;
+      firebase.database().ref("/").child(roomname).update({
+            Purpose: "Adding Room"
+      });
+      localStorage.setItem("Room Name", roomname);
+      window.location = "kwitter_page.html";
+}
+
+
+
+
+
+
 
 function getData() {
       firebase.database().ref("/").on('value', function (snapshot) {

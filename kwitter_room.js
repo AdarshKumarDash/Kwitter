@@ -18,7 +18,7 @@ function addroom() {
       firebase.database().ref("/").child(roomname).update({
             Purpose: "Adding Room"
       });
-      localStorage.setItem("Room Name", roomname);
+      localStorage.setItem("RoomName", roomname);
       window.location = "kwitter_page.html";
 }
 
@@ -34,10 +34,22 @@ function getData() {
             snapshot.forEach(function (childSnapshot) {
                   childKey = childSnapshot.key;
                   Room_names = childKey;
-                  //Start code
-
-                  //End code
+                  console.log("Room Name - " + Room_names);
+                  row = "<div class = 'room_name' id = "+Room_names+" onclick = 'redirectToRoomName(this.id)' >#" + Room_names + "</div><hr>";
+                  document.getElementById("output").innerHTML += row;
             });
       });
 }
 getData();
+
+function redirectToRoomName (name) {
+      console.log(name);
+      localStorage.setItem("RoomName", name);
+      window.location = "kwitter_page.html";
+}
+
+function logout() {
+      localStorage.removeItem("UserName");
+      localStorage.removeItem("RoomName")
+      window.location = "index.html";
+}
